@@ -10,28 +10,62 @@ public class LivresDAO {
     // Ajouter un livre
     public void ajouterLivre(Livres livre) {
         try (Connection conn = Connexion.getConnection()) {
-            String sql = "INSERT INTO livres (ISBN, titre, auteur, categorie, disponibilite) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);// protege de SQL Injection
-            ps.setString(1, livre.getISBN());
-            ps.setString(2, livre.getTitre());
-            ps.setString(3, livre.getAuteur());
-            ps.setString(4, livre.getCategorie());
-            ps.setBoolean(5, livre.isDisponibilite());
-            ps.executeUpdate();//pour exucuter la commande 
-        } catch (Exception e) { e.printStackTrace(); }//ecrire le type derreur 
+            // Try with copy columns first
+            try {
+                String sql = "INSERT INTO livres (ISBN, titre, auteur, categorie, disponibilite, nombreCopies, copiesDisponibles) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, livre.getISBN());
+                ps.setString(2, livre.getTitre());
+                ps.setString(3, livre.getAuteur());
+                ps.setString(4, livre.getCategorie());
+                ps.setBoolean(5, livre.isDisponibilite());
+                ps.setInt(6, livre.getNombreCopies());
+                ps.setInt(7, livre.getCopiesDisponibles());
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                // If columns don't exist, try without them
+                String sql = "INSERT INTO livres (ISBN, titre, auteur, categorie, disponibilite) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, livre.getISBN());
+                ps.setString(2, livre.getTitre());
+                ps.setString(3, livre.getAuteur());
+                ps.setString(4, livre.getCategorie());
+                ps.setBoolean(5, livre.isDisponibilite());
+                ps.executeUpdate();
+            }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     // Modifier un livre
     public void modifierLivre(Livres livre) {
-        try (Connection conn = Connexion.getConnection()/* en peut la faire une seul fois dans main et jerrai la fermuture aussi ajouter conn comme parametre dans chaque methode */) {
-            String sql = "UPDATE livres SET titre=?, auteur=?, categorie=?, disponibilite=? WHERE ISBN=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, livre.getTitre());
-            ps.setString(2, livre.getAuteur());
-            ps.setString(3, livre.getCategorie());
-            ps.setBoolean(4, livre.isDisponibilite());
-            ps.setString(5, livre.getISBN());
-            ps.executeUpdate();
+        try (Connection conn = Connexion.getConnection()) {
+            // Try with copy columns first
+            try {
+                String sql = "UPDATE livres SET titre=?, auteur=?, categorie=?, disponibilite=?, nombreCopies=?, copiesDisponibles=? WHERE ISBN=?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, livre.getTitre());
+                ps.setString(2, livre.getAuteur());
+                ps.setString(3, livre.getCategorie());
+                ps.setBoolean(4, livre.isDisponibilite());
+                ps.setInt(5, livre.getNombreCopies());
+                ps.setInt(6, livre.getCopiesDisponibles());
+                ps.setString(7, livre.getISBN());
+                int rows = ps.executeUpdate();
+                System.out.println("DEBUG DAO: UPDATE avec copies réussi - " + rows + " ligne(s) modifiée(s)");
+                System.out.println("DEBUG DAO: ISBN=" + livre.getISBN() + ", nombreCopies=" + livre.getNombreCopies() + ", copiesDisponibles=" + livre.getCopiesDisponibles());
+            } catch (SQLException e) {
+                // If columns don't exist, try without them
+                System.out.println("DEBUG DAO: Colonnes copies n'existent pas, utilisation de l'ancienne version SQL");
+                System.out.println("DEBUG DAO: Erreur SQL: " + e.getMessage());
+                String sql = "UPDATE livres SET titre=?, auteur=?, categorie=?, disponibilite=? WHERE ISBN=?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, livre.getTitre());
+                ps.setString(2, livre.getAuteur());
+                ps.setString(3, livre.getCategorie());
+                ps.setBoolean(4, livre.isDisponibilite());
+                ps.setString(5, livre.getISBN());
+                ps.executeUpdate();
+            }
         } catch (Exception e) { e.printStackTrace(); }
     }
 
@@ -45,6 +79,15 @@ public class LivresDAO {
         } catch (Exception e) { e.printStackTrace(); }
     }
 
+    // Supprimer tous les livres
+    public void supprimerTousLesLivres() {
+        try (Connection conn = Connexion.getConnection()) {
+            String sql = "DELETE FROM livres";
+            Statement st = conn.createStatement();
+            st.executeUpdate(sql);
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+
     // Rechercher par ISBN
     public Livres chercherParISBN(String ISBN) {
         Livres livre = null;
@@ -52,7 +95,7 @@ public class LivresDAO {
             String sql = "SELECT * FROM livres WHERE ISBN=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, ISBN);
-            ResultSet rs = ps.executeQuery();//exucuter et stockeé la resultat  /*executeUpdate()Sert à exécuter les requêtes SQL qui modifient la base de données.Pour les commandes INSERT, UPDATE, DELETE (ajouter, changer ou supprimer des données).Retourne un nombre entier : le nombre de lignes modifiées. */
+            ResultSet rs = ps.executeQuery();//exucuter et stockeé la resultat  /*executeUpdate()Sert à exécuter les requêtes SQL qui modifient la base de données.Pour les commandes INSERT, UPDATE, DELETE (ajouter, changer ou supprimer des données).Retourne un nombre entier : le nombre de lignes modifiées. */
             if (rs.next()) {
                 livre = new Livres(
                     rs.getString("ISBN"),//recuperer qque chose du requete,
@@ -108,14 +151,14 @@ public class LivresDAO {
         return livresList;
     }
 
-    // Afficher tous les livres avec leur disponibilité
+    // Recuperer tout
     public List<Livres> getAllLivres() {
         List<Livres> livresList = new ArrayList<>();
         try (Connection conn = Connexion.getConnection()) {
             String sql = "SELECT * FROM livres";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) { //rs.next() avancer le curseur vers la prochaine ligne du résultat.
+            while (rs.next()) {
                 livresList.add(new Livres(
                     rs.getString("ISBN"),
                     rs.getString("titre"),

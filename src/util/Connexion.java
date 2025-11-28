@@ -2,20 +2,26 @@ package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Connexion {
-    private static final String URL = "jdbc:mysql://localhost:3306/bibliothe";
+    private static final String URL = "jdbc:mysql://localhost:3306/bibliothe?useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASSWORD = "wassou2005";
-
-    public static Connection getConnection() {
-        Connection conn = null;
+    
+    static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL JDBC Driver not found", e);
         }
-        return conn;//fait une nauveaux cnx a chaque fois et sauvgarde la base
+    }
+
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to connect to database", e);
+        }
     }
 }

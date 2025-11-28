@@ -39,9 +39,9 @@ public class EmpruntController {
 
     @FXML
     public void add() {
-        Date dateEmprunt = Date.from(dpDateEmprunt.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Date dateRetour = dpDateRetour.getValue() != null ? 
-            Date.from(dpDateRetour.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()) : null;
+        java.sql.Date dateEmprunt = new java.sql.Date(Date.from(dpDateEmprunt.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());
+        java.sql.Date dateRetour = dpDateRetour.getValue() != null ? 
+            new java.sql.Date(Date.from(dpDateRetour.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()) : null;
 
         Emprunt e = new Emprunt(
                 txtISBNLivre.getText(),

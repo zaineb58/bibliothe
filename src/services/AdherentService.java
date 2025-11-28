@@ -5,7 +5,7 @@ import model.Adherent;
 import java.util.List;
 
 public class AdherentService {
-    private AdherentDAO dao = new AdherentDAO();
+    private final AdherentDAO dao = new AdherentDAO();
 
     public void AjouterAdherent(Adherent a) {
         dao.ajouterAdherent(a);
@@ -33,6 +33,14 @@ public class AdherentService {
 
     public List<Adherent> chercherParNumero(String numero) {
         return dao.chercherParNumero(numero);
+    }
+
+    public void supprimerTous() {
+        dao.supprimerTousLesAdherents();
+    }
+
+    public Adherent findByPhone(String telephone) {
+        return dao.chercherParTelephone(telephone);
     }
 }
 
