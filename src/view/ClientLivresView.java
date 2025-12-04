@@ -84,7 +84,7 @@ public class ClientLivresView {
 
         Button btnMesInfos = new Button("👤 My Information");
         btnMesInfos.setStyle(
-            "-fx-background-color: #558b2f; " +
+            "-fx-background-color: #f5f5dc; " +
             "-fx-text-fill: white; " +
             "-fx-font-size: 16px; " +
             "-fx-font-weight: bold; " +
@@ -102,7 +102,7 @@ public class ClientLivresView {
             "-fx-cursor: hand;"
         ));
         btnMesInfos.setOnMouseExited(e -> btnMesInfos.setStyle(
-            "-fx-background-color: #558b2f; " +
+            "-fx-background-color: #f5f5dc; " +
             "-fx-text-fill: white; " +
             "-fx-font-size: 16px; " +
             "-fx-font-weight: bold; " +

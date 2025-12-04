@@ -138,11 +138,11 @@ public class BookDetailView {
             Label statusLabel = new Label("📗 This book is available for borrowing");
             statusLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #2e7d32; -fx-font-weight: bold;");
 
-            Button btnBorrow = new Button("📚 Borrow Book");
+            Button btnBorrow = new Button("\ud83d\udcda Borrow Book");
             btnBorrow.setPrefWidth(200);
             btnBorrow.setPrefHeight(45);
             btnBorrow.setStyle(
-                "-fx-background-color: #4caf50;" +
+                "-fx-background-color: #1b5e20;" +
                 "-fx-text-fill: white;" +
                 "-fx-font-size: 16px;" +
                 "-fx-font-weight: bold;" +

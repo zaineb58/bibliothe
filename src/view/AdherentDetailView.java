@@ -62,7 +62,7 @@ public class AdherentDetailView {
 
         Label lblPremium = new Label("⭐ Status: " + (adherent.isPremium() ? "Premium" : "Standard"));
         lblPremium.setFont(Font.font("Arial", FontWeight.BOLD, 15));
-        lblPremium.setStyle("-fx-text-fill: " + (adherent.isPremium() ? "#f57c00" : "#558b2f") + ";");
+        lblPremium.setStyle("-fx-text-fill: " + (adherent.isPremium() ? "#f57c00" : "#f5f5dc") + ";");
 
         Label lblDateAjout = new Label("📅 Date Added: " + 
             (adherent.getDateAjout() != null ? adherent.getDateAjout().toString() : "Not defined"));
@@ -199,7 +199,7 @@ public class AdherentDetailView {
         // Emprunter button
         Button btnEmprunter = new Button("📖 Borrow a Book");
         btnEmprunter.setStyle(
-            "-fx-background-color: #558b2f;" +
+            "-fx-background-color: #f5f5dc;" +
             "-fx-text-fill: white;" +
             "-fx-font-size: 16px;" +
             "-fx-font-weight: bold;" +
@@ -217,7 +217,7 @@ public class AdherentDetailView {
             "-fx-cursor: hand;"
         ));
         btnEmprunter.setOnMouseExited(e -> btnEmprunter.setStyle(
-            "-fx-background-color: #558b2f;" +
+            "-fx-background-color: #f5f5dc;" +
             "-fx-text-fill: white;" +
             "-fx-font-size: 16px;" +
             "-fx-font-weight: bold;" +
@@ -333,7 +333,7 @@ public class AdherentDetailView {
 
         Button btnConfirm = new Button("Confirm Loan");
         btnConfirm.setStyle(
-            "-fx-background-color: #558b2f;" +
+            "-fx-background-color: #f5f5dc;" +
             "-fx-text-fill: white;" +
             "-fx-font-size: 14px;" +
             "-fx-font-weight: bold;" +

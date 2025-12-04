@@ -201,7 +201,7 @@ public class ClientInfoView {
         );
 
         Label sectionTitle = new Label("📋 Personal Information");
-        sectionTitle.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: " + "#375534" + ";");
+        sectionTitle.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: " + "#cdf2a8ff" + ";");
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 

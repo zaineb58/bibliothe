@@ -90,7 +90,7 @@ public class LoginView {
         VBox usernameBox = new VBox(8);
         Label usernameLabel = new Label("📝 Name");
         usernameLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 14));
-        usernameLabel.setStyle("-fx-text-fill: #558b2f;");
+        usernameLabel.setStyle("-fx-text-fill: #001d00ff;");
         
         TextField txtUsername = new TextField();
         txtUsername.setPrefHeight(45);
@@ -109,7 +109,7 @@ public class LoginView {
         VBox passwordBox = new VBox(8);
         Label passwordLabel = new Label("🔒 Security Code");
         passwordLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 14));
-        passwordLabel.setStyle("-fx-text-fill: #558b2f;");
+        passwordLabel.setStyle("-fx-text-fill: #001d00ff;");
         
         PasswordField txtPassword = new PasswordField();
         txtPassword.setPrefHeight(45);
@@ -131,6 +131,7 @@ public class LoginView {
             usernameBox.setVisible(false);
             usernameBox.setManaged(false);
             passwordLabel.setText("🔒 Security Code");
+            passwordLabel.setStyle("-fx-text-fill: #006400;");
             txtPassword.setPromptText("Enter security code");
             rbAdmin.setStyle("-fx-text-fill: #375534; -fx-font-weight: bold;");
             rbClient.setStyle("-fx-text-fill: #424242;");

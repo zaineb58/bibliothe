@@ -167,13 +167,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        // Set system properties BEFORE JavaFX starts for better text rendering
-        System.setProperty("prism.text", "t2k");
-        System.setProperty("prism.lcdtext", "true");
-        System.setProperty("prism.subpixeltext", "true");
-        System.setProperty("awt.useSystemAAFontSettings", "lcd");
-        System.setProperty("swing.aatext", "true");
-        
         launch(args);
     }
 }

@@ -154,7 +154,7 @@ public class ClientLivreDetailView {
 
                     Button btnEmprunter = new Button("📚 Borrow this book");
                     btnEmprunter.setStyle(
-                        "-fx-background-color: #558b2f;" +
+                        "-fx-background-color: #215e00ff;" +
                         "-fx-text-fill: white;" +
                         "-fx-font-size: 16px;" +
                         "-fx-font-weight: bold;" +

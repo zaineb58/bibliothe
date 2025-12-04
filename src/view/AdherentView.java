@@ -103,7 +103,7 @@ public class AdherentView {
         actionButtonsContainer.setPadding(new Insets(10, 0, 10, 0));
         
         Button btnShowAddForm = createActionButton("➕ Add New Member", "#4caf50");
-        Button btnDeleteMember = createActionButton("🗑️ Delete Member", "#f44336");
+        Button btnDeleteMember = createActionButton("🗑️ Delete Member", "#a70000ff");
         
         actionButtonsContainer.getChildren().addAll(btnShowAddForm, btnDeleteMember);
 
@@ -165,7 +165,7 @@ public class AdherentView {
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setPadding(new Insets(10, 0, 0, 0));
 
-        Button btnSave = createStyledButton("💾 Save", "#4caf50");
+        Button btnSave = createStyledButton("💾 Save", "#375534");
         Button btnCancel = createStyledButton("❌ Cancel", "#757575");
 
         buttonBox.getChildren().addAll(btnSave, btnCancel);
@@ -179,7 +179,6 @@ public class AdherentView {
             clear();
         });
         
-        btnDeleteMember.setOnAction(e -> deleteAdherent());
         
         btnCancel.setOnAction(e -> {
             formContainer.setVisible(false);
@@ -299,8 +298,8 @@ public class AdherentView {
             "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 3);"
         );
         
-        String hoverColor = color.equals("#4caf50") ? "#45a049" : 
-                           color.equals("#2196f3") ? "#1976d2" : "#d32f2f";
+        String hoverColor = color.equals("#375534") ? "#45a049" : 
+                           color.equals("#2196f3") ? "#1976d2" : "#8B0000";
         
         btn.setOnMouseEntered(e -> btn.setStyle(
             "-fx-background-color: " + hoverColor + ";" +

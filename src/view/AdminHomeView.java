@@ -63,7 +63,7 @@ public class AdminHomeView {
         titleLabel.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2e7d32; -fx-font-style: italic;");
 
         Label descLabel = new Label(description);
-        descLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #558b2f; -fx-text-alignment: center;");
+        descLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #f5f5dc; -fx-text-alignment: center;");
         descLabel.setWrapText(true);
         descLabel.setMaxWidth(380);
 
